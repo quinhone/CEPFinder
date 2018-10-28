@@ -22,7 +22,8 @@ class CEPFinder
     protected $ibge;
     protected $gia;
 
-    public function __construct($cep = null){
+    public function __construct($cep = null)
+    {
         $this->cep = $cep;
 
         $this->client = new Client();
@@ -39,17 +40,17 @@ class CEPFinder
         if (!$cepEscoped) {
             throw new \Exception("CEP não informado.");
         }
-      
+
         try {
             $result = $this->client->get(str_replace("{cep}", $cepEscoped, self::API_URL));
         } catch (GuzzleException $exception) {
             return $exception->getResponse()->getStatusCode();
         }
-        
+
         $response = json_decode($result->getBody(), true);
 
-        foreach($response as $key => $value){
-            if(property_exists($this, $key)){
+        foreach ($response as $key => $value) {
+            if (property_exists($this, $key)) {
                 $this->$key = $value;
             }
         }
@@ -100,8 +101,10 @@ class CEPFinder
 
         if ($resultPreg[0] == 'get') {
             return $this->getAttribute($resultPreg[1]);
-        } else if ($resultPreg[0] == 'set') {
-            return $this->setAttribute($resultPreg[1], $arguments);
+        } else {
+            if ($resultPreg[0] == 'set') {
+                return $this->setAttribute($resultPreg[1], $arguments);
+            }
         }
 
         throw new \Exception("Método $method não existe");
@@ -157,7 +160,7 @@ class CEPFinder
                 if (!is_numeric($key)) {
                     $subnode = $xml->addChild("$key");
                     $this->arrayToXml($value, $subnode);
-                }else{
+                } else {
                     $subnode = $xml->addChild("item$key");
                     $this->arrayToXml($value, $subnode);
                 }
