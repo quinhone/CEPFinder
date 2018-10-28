@@ -16,55 +16,67 @@ class CEPFinder
      * @var Client
      */
     private $client;
+
     /**
-     * @var
+     * @var array
      */
     private $apiResult;
+
     /**
-     *
+     * Constante de URL da API do ViaCEP
+     * 
+     * @const API_URL
      */
     const API_URL = "https://viacep.com.br/ws/{cep}/json/";
 
     /**
-     * @var null
+     * @var null|string
      */
     protected $cep;
+
     /**
-     * @var
+     * @var string
      */
     protected $logradouro;
+
     /**
-     * @var
+     * @var string
      */
     protected $complemento;
+
     /**
-     * @var
+     * @var string
      */
     protected $bairro;
+
     /**
-     * @var
+     * @var string
      */
     protected $localidade;
+
     /**
-     * @var
+     * @var string
      */
     protected $uf;
+
     /**
-     * @var
+     * @var string
      */
     protected $unidade;
+
     /**
-     * @var
+     * @var string
      */
     protected $ibge;
+
     /**
-     * @var
+     * @var string
      */
     protected $gia;
 
     /**
      * CEPFinder constructor.
-     * @param null $cep
+     * @param null|string $cep
      */
     public function __construct($cep = null)
     {
@@ -74,8 +86,10 @@ class CEPFinder
     }
 
     /**
-     * @param null $cep
-     * @return mixed
+     * @param null|string $cep
+     * 
+     * @return int
+     * 
      * @throws \Exception
      */
     public function consult($cep = null)
@@ -129,8 +143,9 @@ class CEPFinder
     }
 
     /**
-     * @param $name
-     * @param $value
+     * @param string    $name
+     * @param mixed     $value
+     * 
      * @throws \Exception
      */
     public function __set($name, $value)
@@ -143,7 +158,8 @@ class CEPFinder
     }
 
     /**
-     * @param $name
+     * @param string    $name
+     * 
      * @throws \Exception
      */
     public function __get($name)
@@ -156,8 +172,9 @@ class CEPFinder
     }
 
     /**
-     * @param $method
-     * @param $arguments
+     * @param string    $method
+     * @param array     $arguments
+     * 
      * @throws \Exception
      */
     public function __call($method, $arguments)
@@ -180,7 +197,8 @@ class CEPFinder
     }
 
     /**
-     * @param $method
+     * @param string    $method
+     * 
      * @return array
      */
     private function getArrayFromMethodCall($method)
@@ -189,7 +207,9 @@ class CEPFinder
     }
 
     /**
-     * @param $attribute
+     * @param string    $attribute
+     * 
+     * @return mixed
      */
     private function getAttribute($attribute)
     {
@@ -198,8 +218,9 @@ class CEPFinder
     }
 
     /**
-     * @param $attribute
-     * @param $arguments
+     * @param string    $attribute
+     * @param array     $arguments
+     * 
      * @throws \Exception
      */
     private function setAttribute($attribute, $arguments)
@@ -215,7 +236,7 @@ class CEPFinder
     }
 
     /**
-     *
+     * Metodo para construir o array de respostas usando as propriedades da classes
      */
     private function setArrayByAttributes()
     {
@@ -233,7 +254,8 @@ class CEPFinder
     }
 
     /**
-     * @param $attribute
+     * @param string    $attribute
+     * 
      * @return string
      */
     private function lowerCaseAttribute($attribute)
@@ -242,8 +264,8 @@ class CEPFinder
     }
 
     /**
-     * @param $array
-     * @param $xml
+     * @param array             $array
+     * @param \SimpleXMLElement $xml
      */
     private function arrayToXml($array, &$xml)
     {
